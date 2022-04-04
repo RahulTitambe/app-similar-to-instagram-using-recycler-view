@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecyclerView3">
         <activity
+            android:name=".DetailedPost"
+            android:exported="false" />
+        <activity
             android:name=".ImagesSelection"
             android:exported="false" />
         <activity

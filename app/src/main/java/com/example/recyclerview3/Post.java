@@ -7,6 +7,8 @@ public class Post implements Serializable {
     private String strTitle, strDescription;
     private int imgImageID;
 
+    public static final String KEY = "detailedpost";
+
     public String getStrTitle() {
         return strTitle;
     }

@@ -3,6 +3,7 @@ package com.example.recyclerview3;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Post> postsList;
     private RecyclerView recyclerPosts;
     private PostsAdapter postsAdapter;
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
+
+        postsAdapter.setOnPostClickListener(new OnPostClickListener());
 
     }
 
@@ -42,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId() == R.id.menuAddProduct) {
-            //start add product activity
             startCreatePostActivity();
         }
         return super.onOptionsItemSelected(item);
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         postsList = new ArrayList<Post>();
         recyclerPosts = findViewById(R.id.recyclerPosts);
+        constraintLayout = findViewById(R.id.constraintPrimaryPost);
 
         recyclerPosts.setLayoutManager( new LinearLayoutManager(
                 this,
@@ -76,5 +80,14 @@ public class MainActivity extends AppCompatActivity {
             postsAdapter.notifyDataSetChanged();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    class OnPostClickListener implements PostsAdapter.OnPostClickListener{
+        @Override
+        public void onLayoutClick(Post post, int position) {
+            Intent intent = new Intent(MainActivity.this, DetailedPost.class);
+            intent.putExtra(Post.KEY, post);
+            startActivity(intent);
+        }
     }
 }
